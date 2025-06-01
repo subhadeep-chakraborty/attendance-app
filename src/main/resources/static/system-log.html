@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Logs - Class Monitor App</title>
+</head>
+<body>
+    <header>
+        <h1>Class Monitor App</h1>
+        <nav aria-label="Admin navigation">
+            <a href="admin-dashboard.html">Dashboard</a> |
+            <a href="system-logs.html">System Logs</a> |
+            <a href="logout.html">Logout</a>
+        </nav>
+    </header>
+    
+    <main>
+        <h2>System Logs</h2>
+        <form>
+            <label for="search">Search:</label>
+            <input type="text" id="search">
+            <button type="submit">Search</button>
+        </form>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Event</th>
+                    <th>User</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2025-05-25 09:15</td>
+                    <td>Login</td>
+                    <td>teacher1@school.edu</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

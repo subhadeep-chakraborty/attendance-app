@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Reports - Class Monitor App</title>
+</head>
+<body>
+    <header>
+        <h1>Class Monitor App</h1>
+        <nav aria-label="Teacher navigation">
+            <a href="teacher-dashboard.html">Dashboard</a> |
+            <a href="generate-reports.html">Reports</a> |
+            <a href="logout.html">Logout</a>
+        </nav>
+    </header>
+    
+    <main>
+        <h2>Generate Reports</h2>
+        <form>
+            <label for="report-type">Report Type:</label>
+            <select id="report-type">
+                <option>Attendance Summary</option>
+                <option>Grade Report</option>
+            </select>
+            
+            <label for="class">Class:</label>
+            <select id="class">
+               <option>Component Oriented Software Engineering</option>
+                <option>Applied Cloud Computing</option>
+                <option>German Language</option>
+            </select>
+            
+            <label for="date-from">From:</label>
+            <input type="date" id="date-from">
+            
+            <label for="date-to">To:</label>
+            <input type="date" id="date-to">
+            
+            <button type="button">Generate PDF</button>
+            <button type="button">Generate CSV</button>
+        </form>
+    </main>
+</body>
+</html>
