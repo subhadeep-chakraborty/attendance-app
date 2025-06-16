@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Record Grades - Class Monitor App</title>
+</head>
+<body>
+<header>
+    <h1>Class Monitor App</h1>
+    <nav aria-label="Teacher navigation">
+        <a th:href="@{/teacher}">Dashboard</a> |
+        <a th:href="@{/mark-attendance}">Mark Attendance</a> |
+        <a th:href="@{/record-grades}">Record Grades</a> |
+        <a th:href="@{/logout}">Logout</a>
+    </nav>
+</header>
+
+<main>
+    <h2>Record Grades</h2>
+    <form th:action="@{/record-grades}" method="post">
+        <label for="class">Class:</label>
+        <select id="class" name="class">
+            <option>Component Oriented Software Engineering</option>
+            <option>Applied Cloud Computing</option>
+            <option>German Language</option>
+        </select>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Student</th>
+                <th>Grade</th>
+                <th>Feedback</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Subhadeep Chakraborty</td>
+                <td><input type="text" name="grade" placeholder="A-F" required></td>
+                <td><textarea name="feedback" rows="2" cols="20"></textarea></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <button type="submit">Save Grades</button>
+    </form>
+</main>
+</body>
+</html>

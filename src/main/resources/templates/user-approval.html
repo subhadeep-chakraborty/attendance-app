@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Approvals - Class Monitor App</title>
+</head>
+<body>
+<header>
+    <h1>Class Monitor App</h1>
+    <nav aria-label="Admin navigation">
+        <a th:href="@{/admin-dashboard}">Dashboard</a> |
+        <a th:href="@{/user-approval}">User Approvals</a> |
+        <a th:href="@{/manage-classes}">Manage Classes</a> |
+        <a th:href="@{/system-log}">System Logs</a> |
+        <a th:href="@{/logout}">Logout</a>
+    </nav>
+</header>
+
+<main>
+    <h2>Pending User Approvals</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${pendingUsers}">
+            <td th:text="${user.name}">Subhadeep Chakraborty</td>
+            <td th:text="${user.email}">test@example.com</td>
+            <td th:text="${user.role}">Student</td>
+            <td>
+                <form th:action="@{/approve-user}" method="post" style="display:inline;">
+                    <input type="hidden" name="email" th:value="${user.email}" />
+                    <button type="submit">Approve</button>
+                </form>
+                <form th:action="@{/reject-user}" method="post" style="display:inline;">
+                    <input type="hidden" name="email" th:value="${user.email}" />
+                    <button type="submit">Reject</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

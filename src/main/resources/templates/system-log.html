@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Logs - Class Monitor App</title>
+</head>
+<body>
+<header>
+    <h1>Class Monitor App</h1>
+    <nav aria-label="Admin navigation">
+        <a th:href="@{/admin-dashboard}">Dashboard</a> |
+        <a th:href="@{/user-approval}">User Approvals</a> |
+        <a th:href="@{/manage-classes}">Manage Classes</a> |
+        <a th:href="@{/system-log}">System Logs</a> |
+        <a th:href="@{/logout}">Logout</a>
+    </nav>
+</header>
+
+<main>
+    <h2>System Logs</h2>
+    <form method="get" th:action="@{/system-log}">
+        <label for="search">Search:</label>
+        <input type="text" id="search" name="query" th:value="${query}">
+        <button type="submit">Search</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Timestamp</th>
+            <th>Event</th>
+            <th>User</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="log : ${logs}">
+            <td th:text="${log.timestamp}">2025-05-25 09:15</td>
+            <td th:text="${log.event}">Login</td>
+            <td th:text="${log.user}">teacher1@school.edu</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

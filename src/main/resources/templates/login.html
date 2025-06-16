@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Class Monitor App</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<header>
+    <h1>Class Monitor App</h1>
+</header>
+
+<main>
+    <h2>Login</h2>
+
+    <!-- Session timeout message -->
+    <div th:if="${timeout}" style="color:orange;">
+        Your session has timed out. Please log in again.
+    </div>
+
+    <!-- Login error message -->
+    <div th:if="${error}" style="color:red;">
+        Invalid email or password.
+    </div>
+
+    <form method="POST" th:action="@{/login}">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Sign In</button>
+    </form>
+
+    <p><a th:href="@{/forgot-password.html}">Forgot Password?</a></p>
+    <p>Not registered? <a th:href="@{/registration.html}">Register now</a></p>
+</main>
+</body>
+</html>

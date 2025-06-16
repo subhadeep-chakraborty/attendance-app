@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Attendance - Class Monitor App</title>
+</head>
+<body>
+<header>
+    <h1>Class Monitor App</h1>
+    <nav aria-label="Student navigation">
+        <a th:href="@{/student-dashboard}">Dashboard</a> |
+        <a th:href="@{/view-attendance}">Attendance</a> |
+        <a th:href="@{/view-grades}">Grades</a> |
+        <a th:href="@{/logout}">Logout</a>
+    </nav>
+</header>
+
+<main>
+    <h2>Your Attendance</h2>
+    <p>Attendance records will be displayed here.</p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Class</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="record : ${attendanceList}">
+            <td th:text="${record.date}">2025-05-28</td>
+            <td th:text="${record.className}">Component Oriented Software Engineering</td>
+            <td th:text="${record.status}">Present</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

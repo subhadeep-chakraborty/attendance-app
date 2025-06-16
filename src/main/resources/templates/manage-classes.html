@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Classes - Class Monitor App</title>
+</head>
+<body>
+<header>
+    <h1>Class Monitor App</h1>
+    <nav aria-label="Admin navigation">
+        <a th:href="@{/admin}">Dashboard</a> |
+        <a th:href="@{/user-approval}">User Approvals</a> |
+        <a th:href="@{/manage-classes}">Manage Classes</a> |
+        <a th:href="@{/system-log}">System Logs</a> |
+        <a th:href="@{/logout}">Logout</a>
+    </nav>
+</header>
+
+<main>
+    <h2>Manage Classes</h2>
+    <section>
+        <p>Here you can add, update, or delete classes.</p>
+        <ul>
+            <li>Class 10A - Mathematics</li>
+            <li>Class 9B - English</li>
+            <li>Class 8C - Science</li>
+        </ul>
+        <p><a th:href="@{/add-class}">Add New Class</a></p>
+    </section>
+</main>
+</body>
+</html>

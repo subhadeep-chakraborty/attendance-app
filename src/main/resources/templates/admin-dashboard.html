@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <title>Admin Dashboard - Class Monitor App</title>
+
+
+</head>
+<body>
+<header>
+    <h1>Class Monitor App</h1>
+    <nav aria-label="Admin navigation">
+        <a th:href="@{/admin}">Dashboard</a> |
+        <a th:href="@{/user-approval}">User Approvals</a> |
+        <a th:href="@{/manage-classes}">Manage Classes</a> |
+        <a th:href="@{/system-log}">System Logs</a> |
+        <a th:href="@{/logout}">Logout</a>
+    </nav>
+</header>
+
+<main>
+    <h2>Admin Dashboard</h2>
+    <section>
+        <h3>Pending Approvals: 5</h3>
+        <h3>Active Users: 142</h3>
+    </section>
+</main>
+</body>
+</html>
