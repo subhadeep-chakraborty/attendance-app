@@ -16,35 +16,68 @@
         <a th:href="@{/admin-dashboard}">Dashboard</a> |
         <a th:href="@{/user-approval}">User Approvals</a> |
         <a th:href="@{/manage-classes}">Manage Classes</a> |
+        <a th:href="@{/manage-students}">Manage Students</a> |
         <a th:href="@{/system-log}">System Logs</a> |
         <a th:href="@{/logout}">Logout</a>
     </nav>
 </header>
 
+<!--<main>-->
+<!--    <h2>Pending User Approvals</h2>-->
+<!--    <table>-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>Name</th>-->
+<!--            <th>Email</th>-->
+<!--            <th>Role</th>-->
+<!--            <th>Actions</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="user : ${pendingUsers}">-->
+<!--            <td th:text="${user.name}">Subhadeep Chakraborty</td>-->
+<!--            <td th:text="${user.email}">test@example.com</td>-->
+<!--            <td th:text="${user.role}">Student</td>-->
+<!--            <td>-->
+<!--                <form th:action="@{/approve-user}" method="post" style="display:inline;">-->
+<!--                    <input type="hidden" name="email" th:value="${user.email}" />-->
+<!--                    <button type="submit">Approve</button>-->
+<!--                </form>-->
+<!--                <form th:action="@{/reject-user}" method="post" style="display:inline;">-->
+<!--                    <input type="hidden" name="email" th:value="${user.email}" />-->
+<!--                    <button type="submit">Reject</button>-->
+<!--                </form>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--</main>-->
 <main>
-    <h2>Pending User Approvals</h2>
-    <table>
+    <h2>All Users</h2>
+    <table border="1" cellpadding="6" cellspacing="0">
         <thead>
         <tr>
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Approved</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user : ${pendingUsers}">
-            <td th:text="${user.name}">Subhadeep Chakraborty</td>
-            <td th:text="${user.email}">test@example.com</td>
-            <td th:text="${user.role}">Student</td>
+        <tr th:each="user : ${allUsers}">
+            <td th:text="${user.name}">Name</td>
+            <td th:text="${user.email}">email@example.com</td>
+            <td th:text="${user.role}">STUDENT</td>
+            <td th:text="${user.approved} ? 'Yes' : 'No'">Yes</td>
             <td>
-                <form th:action="@{/approve-user}" method="post" style="display:inline;">
+                <form th:if="${!user.approved}" th:action="@{/approve-user}" method="post" style="display:inline;">
                     <input type="hidden" name="email" th:value="${user.email}" />
-                    <button type="submit">Approve</button>
+                    <button type="submit">Activate</button>
                 </form>
-                <form th:action="@{/reject-user}" method="post" style="display:inline;">
+                <form th:if="${user.approved}" th:action="@{/deactivate-user}" method="post" style="display:inline;">
                     <input type="hidden" name="email" th:value="${user.email}" />
-                    <button type="submit">Reject</button>
+                    <button type="submit">Deactivate</button>
                 </form>
             </td>
         </tr>

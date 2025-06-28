@@ -17,6 +17,7 @@
         <a th:href="@{/admin}">Dashboard</a> |
         <a th:href="@{/user-approval}">User Approvals</a> |
         <a th:href="@{/manage-classes}">Manage Classes</a> |
+        <a th:href="@{/manage-students}">Manage Students</a> |
         <a th:href="@{/system-log}">System Logs</a> |
         <a th:href="@{/logout}">Logout</a>
     </nav>
@@ -25,8 +26,8 @@
 <main>
     <h2>Admin Dashboard</h2>
     <section>
-        <h3>Pending Approvals: 5</h3>
-        <h3>Active Users: 142</h3>
+        <h3>Pending Approvals: <span th:text="${pendingUsers}">0</span></h3>
+        <h3>Active Users: <span th:text="${activeUsers}">0</span></h3>
     </section>
 </main>
 </body>

@@ -16,22 +16,48 @@
         <a th:href="@{/admin}">Dashboard</a> |
         <a th:href="@{/user-approval}">User Approvals</a> |
         <a th:href="@{/manage-classes}">Manage Classes</a> |
+        <a th:href="@{/manage-students}">Manage Students</a> |
         <a th:href="@{/system-log}">System Logs</a> |
         <a th:href="@{/logout}">Logout</a>
     </nav>
 </header>
 
 <main>
-    <h2>Manage Classes</h2>
-    <section>
-        <p>Here you can add, update, or delete classes.</p>
-        <ul>
-            <li>Class 10A - Mathematics</li>
-            <li>Class 9B - English</li>
-            <li>Class 8C - Science</li>
-        </ul>
-        <p><a th:href="@{/add-class}">Add New Class</a></p>
-    </section>
+    <h2>Subject Management</h2>
+    <table border="1" cellpadding="6" cellspacing="0">
+        <thead>
+        <tr>
+            <th>Subject Name</th>
+            <th>Assigned Teachers</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="subject : ${subjects}">
+            <td th:text="${subject.name}">Math</td>
+            <td>
+                <ul style="margin: 0; padding-left: 16px;">
+                    <li th:each="t : ${subject.teachers}"
+                        th:text="${t.name + ' (' + t.email + ')'}">Teacher Name</li>
+                </ul>
+            </td>
+            <td th:text="${subject.active} ? 'Active' : 'Inactive'">Active</td>
+            <td>
+                <form th:if="${subject.active}" th:action="@{/deactivate-class}" method="post" style="display:inline;">
+                    <input type="hidden" name="id" th:value="${subject.id}" />
+                    <button type="submit">Deactivate</button>
+                </form>
+
+                <form th:if="${!subject.active}" th:action="@{/activate-class}" method="post" style="display:inline;">
+                    <input type="hidden" name="id" th:value="${subject.id}" />
+                    <button type="submit">Activate</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p><a th:href="@{/add-class}">Add New Class</a></p>
 </main>
 </body>
 </html>

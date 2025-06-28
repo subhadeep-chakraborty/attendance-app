@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Class - Class Monitor App</title>
+</head>
+<body>
+<header>
+    <h1>Add New Class</h1>
+</header>
+<main>
+    <form method="post" th:action="@{/add-class}">
+        <label for="name">Subject Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="teachers">Assign Teachers:</label>
+        <select id="teachers" name="teachers" multiple size="5" required>
+            <option th:each="t : ${teachers}"
+                    th:value="${t.email}"
+                    th:text="${t.name + ' (' + t.email + ')'}">
+            </option>
+        </select>
+
+        <br/><br/>
+        <button type="submit">Add Subject</button>
+    </form>
+</main>
+</body>
+</html>

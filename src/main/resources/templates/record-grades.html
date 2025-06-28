@@ -22,15 +22,40 @@
 
 <main>
     <h2>Record Grades</h2>
+<!--    <form th:action="@{/record-grades}" method="post">-->
+<!--        <label for="class">Class:</label>-->
+<!--        <select id="class" name="class">-->
+<!--            <option>Component Oriented Software Engineering</option>-->
+<!--            <option>Applied Cloud Computing</option>-->
+<!--            <option>German Language</option>-->
+<!--        </select>-->
+
+<!--        <table>-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>Student</th>-->
+<!--                <th>Grade</th>-->
+<!--                <th>Feedback</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--                <td>Subhadeep Chakraborty</td>-->
+<!--                <td><input type="text" name="grade" placeholder="A-F" required></td>-->
+<!--                <td><textarea name="feedback" rows="2" cols="20"></textarea></td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+
+<!--        <button type="submit">Save Grades</button>-->
+<!--    </form>-->
     <form th:action="@{/record-grades}" method="post">
         <label for="class">Class:</label>
-        <select id="class" name="class">
-            <option>Component Oriented Software Engineering</option>
-            <option>Applied Cloud Computing</option>
-            <option>German Language</option>
+        <select id="class" name="subjectId">
+            <option th:each="sub : ${subjects}" th:value="${sub.id}" th:text="${sub.name}">Class</option>
         </select>
 
-        <table>
+        <table border="1">
             <thead>
             <tr>
                 <th>Student</th>
@@ -39,10 +64,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Subhadeep Chakraborty</td>
-                <td><input type="text" name="grade" placeholder="A-F" required></td>
-                <td><textarea name="feedback" rows="2" cols="20"></textarea></td>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.name} + ' (' + student.email + ')'"></td>
+                <td><input type="text" th:name="'grades[' + ${student.email} + '].grade'" placeholder="A-F" required></td>
+                <td><textarea th:name="'grades[' + ${student.email} + '].feedback'" rows="2" cols="20"></textarea></td>
             </tr>
             </tbody>
         </table>

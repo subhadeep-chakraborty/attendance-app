@@ -34,8 +34,17 @@
         <button type="submit">Sign In</button>
     </form>
 
-    <p><a th:href="@{/forgot-password.html}">Forgot Password?</a></p>
-    <p>Not registered? <a th:href="@{/registration.html}">Register now</a></p>
+    <p><a th:href="@{/forgot-password}">Forgot Password?</a></p>
+    <p>Not registered? <a th:href="@{/registration}">Register now</a></p>
+
+    <div th:if="${registrationSuccess}" class="message success">
+        Registration successful! Please log in.
+    </div>
+
+    <div th:if="${registrationError}" class="message error">
+        Registration failed: Email already exists.
+    </div>
+
 </main>
 </body>
 </html>

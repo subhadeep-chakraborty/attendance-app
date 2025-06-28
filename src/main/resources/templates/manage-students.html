@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Students - Class Monitor App</title>
+</head>
+<body>
+<header>
+    <h1>Class Monitor App</h1>
+    <nav>
+        <a th:href="@{/admin-dashboard}">Dashboard</a> |
+        <a th:href="@{/user-approval}">User Approvals</a> |
+        <a th:href="@{/manage-classes}">Manage Classes</a> |
+        <a th:href="@{/manage-students}">Manage Students</a> |
+        <a th:href="@{/system-log}">System Logs</a> |
+        <a th:href="@{/logout}">Logout</a>
+    </nav>
+</header>
+
+<main>
+    <h2>Assign Class to Students Here</h2>
+
+    <!-- Alert messages -->
+    <p th:if="${success}" style="color: green;">Class assigned successfully!</p>
+    <p th:if="${error}" style="color: red;">Failed to assign class. Please try again.</p>
+
+    <form method="post" th:action="@{/assign-class}">
+        <label for="student">Select Student:</label>
+        <select id="student" name="studentEmail" required>
+            <option th:each="student : ${students}"
+                    th:value="${student.email}"
+                    th:text="${student.name + ' (' + student.email + ')'}">
+            </option>
+        </select>
+
+        <label for="subject">Select Subject:</label>
+        <select id="subject" name="subjectId" required>
+            <option th:each="subject : ${subjects}"
+                    th:value="${subject.id}"
+                    th:text="${subject.name}"></option>
+        </select>
+
+        <button type="submit">Assign</button>
+    </form>
+
+    <hr>
+    <h3>Assigned Classes</h3>
+    <table border="1" cellpadding="6" cellspacing="0">
+        <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Email</th>
+            <th>Subjects</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="entry : ${assigned}">
+            <td th:text="${entry.key.name}">Student Name</td>
+            <td th:text="${entry.key.email}">email@example.com</td>
+            <td th:text="${#strings.listJoin(entry.value, ', ')}">Math, English</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

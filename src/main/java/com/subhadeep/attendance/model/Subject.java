@@ -1,11 +1,11 @@
 package com.subhadeep.attendance.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,6 +14,21 @@ public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String name;
-    private String subject_teacher;
+
+    private boolean active = true;
+
+    @ManyToMany
+    @JoinTable(
+            name = "subject_teacher",
+            joinColumns = @JoinColumn(name = "subject_id"),
+            inverseJoinColumns = @JoinColumn(name = "teacher_email")
+    )
+    private List<User> teachers; // Only users with role TEACHER
+
+    @ManyToMany(mappedBy = "enrolledSubjects")
+    private List<User> enrolledStudents = new ArrayList<>();
+
 }

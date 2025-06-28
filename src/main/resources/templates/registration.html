@@ -5,6 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Class Monitor App</title>
     <link rel="stylesheet" th:href="@{/style.css}">
+    <style>
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
+    <script>
+        function toggleDepartmentField() {
+            const roleSelect = document.getElementById("role");
+            const departmentGroup = document.getElementById("department-group");
+            if (roleSelect.value === "teacher") {
+                departmentGroup.style.display = "block";
+            } else {
+                departmentGroup.style.display = "none";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("role").addEventListener("change", toggleDepartmentField);
+            toggleDepartmentField(); // set initial state
+        });
+    </script>
 </head>
 <body>
 <header>
@@ -12,13 +53,22 @@
 </header>
 
 <main>
-    <h2>Register</h2>
+    <h2 style="text-align:center;">Register</h2>
     <form method="post" th:action="@{/register}">
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
         <label for="role">Role:</label>
         <select id="role" name="role">
             <option value="student">Student</option>
             <option value="teacher">Teacher</option>
         </select>
+
+        <div id="department-group" style="display: none;">
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department">
+        </div>
 
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
