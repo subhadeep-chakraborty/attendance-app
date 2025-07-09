@@ -8,6 +8,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Attendance - Class Monitor App</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        header, main {
+            padding: 1rem 2rem;
+        }
+
+        nav a {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -22,7 +55,6 @@
 
 <main>
     <h2>Your Attendance</h2>
-    <p>Attendance records will be displayed here.</p>
 
     <table>
         <thead>
@@ -35,8 +67,8 @@
         <tbody>
         <tr th:each="record : ${attendanceList}">
             <td th:text="${record.date}">2025-05-28</td>
-            <td th:text="${record.className}">Component Oriented Software Engineering</td>
-            <td th:text="${record.status}">Present</td>
+            <td th:text="${record.subject.name}">Component Oriented Software Engineering</td>
+            <td th:text="${record.present ? 'Present' : 'Absent'}">Present</td>
         </tr>
         </tbody>
     </table>

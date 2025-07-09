@@ -20,6 +20,7 @@ public class Subject {
 
     private boolean active = true;
 
+
     @ManyToMany
     @JoinTable(
             name = "subject_teacher",
@@ -28,7 +29,16 @@ public class Subject {
     )
     private List<User> teachers; // Only users with role TEACHER
 
+
     @ManyToMany(mappedBy = "enrolledSubjects")
     private List<User> enrolledStudents = new ArrayList<>();
+
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
+    private List<Attendance> attendanceRecords = new ArrayList<>();
+
+
+
+
+
 
 }

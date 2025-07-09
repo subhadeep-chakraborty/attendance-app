@@ -31,6 +31,9 @@ public class AuthService {
         }
         user.setApproved(false);
         user.setEmailVerified(false);
+        if (!user.isEmailVerified()) {
+            return false; // or throw error
+        }
 
         userRepo.save(user);
         return true;

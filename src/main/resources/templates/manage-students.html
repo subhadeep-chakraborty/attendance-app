@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Students - Class Monitor App</title>
 </head>
 <body>
@@ -57,7 +62,18 @@
         <tr th:each="entry : ${assigned}">
             <td th:text="${entry.key.name}">Student Name</td>
             <td th:text="${entry.key.email}">email@example.com</td>
-            <td th:text="${#strings.listJoin(entry.value, ', ')}">Math, English</td>
+            <td>
+                <ul style="margin: 0; padding-left: 16px;">
+                    <li th:each="subject : ${entry.value}">
+                        <span th:text="${subject}"></span>
+                        <form th:action="@{/unenroll}" method="post" style="display:inline;">
+                            <input type="hidden" name="studentEmail" th:value="${entry.key.email}" />
+                            <input type="hidden" name="subjectName" th:value="${subject}" />
+                            <button type="submit">Unenroll</button>
+                        </form>
+                    </li>
+                </ul>
+            </td>
         </tr>
         </tbody>
     </table>

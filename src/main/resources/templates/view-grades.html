@@ -8,6 +8,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Grades - Class Monitor App</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        header, main {
+            padding: 1rem 2rem;
+        }
+
+        nav a {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -33,9 +66,9 @@
         </thead>
         <tbody>
         <tr th:each="grade : ${gradeList}">
-            <td th:text="${grade.className}">Component Oriented Software Engineering</td>
+            <td th:text="${grade.subject.name}">Component Oriented Software Engineering</td>
             <td th:text="${grade.grade}">A</td>
-            <td th:text="${grade.feedback}">Good understanding of concepts</td>
+            <td th:text="${grade.feedback}">Excellent work and participation</td>
         </tr>
         </tbody>
     </table>

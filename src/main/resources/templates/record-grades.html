@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Record Grades - Class Monitor App</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <header>
@@ -22,58 +23,62 @@
 
 <main>
     <h2>Record Grades</h2>
-<!--    <form th:action="@{/record-grades}" method="post">-->
-<!--        <label for="class">Class:</label>-->
-<!--        <select id="class" name="class">-->
-<!--            <option>Component Oriented Software Engineering</option>-->
-<!--            <option>Applied Cloud Computing</option>-->
-<!--            <option>German Language</option>-->
-<!--        </select>-->
 
-<!--        <table>-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <th>Student</th>-->
-<!--                <th>Grade</th>-->
-<!--                <th>Feedback</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr>-->
-<!--                <td>Subhadeep Chakraborty</td>-->
-<!--                <td><input type="text" name="grade" placeholder="A-F" required></td>-->
-<!--                <td><textarea name="feedback" rows="2" cols="20"></textarea></td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-
-<!--        <button type="submit">Save Grades</button>-->
-<!--    </form>-->
-    <form th:action="@{/record-grades}" method="post">
+    <form id="gradeForm" th:action="@{/record-grades}" method="post">
         <label for="class">Class:</label>
-        <select id="class" name="subjectId">
+        <select id="class" name="subjectId" required>
+            <option value="" disabled selected>Select Class</option>
             <option th:each="sub : ${subjects}" th:value="${sub.id}" th:text="${sub.name}">Class</option>
         </select>
 
-        <table border="1">
-            <thead>
-            <tr>
-                <th>Student</th>
-                <th>Grade</th>
-                <th>Feedback</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="student : ${students}">
-                <td th:text="${student.name} + ' (' + student.email + ')'"></td>
-                <td><input type="text" th:name="'grades[' + ${student.email} + '].grade'" placeholder="A-F" required></td>
-                <td><textarea th:name="'grades[' + ${student.email} + '].feedback'" rows="2" cols="20"></textarea></td>
-            </tr>
-            </tbody>
-        </table>
-
-        <button type="submit">Save Grades</button>
+        <div id="studentTableContainer" style="margin-top: 20px; display:none;">
+            <table border="1" id="students-table">
+                <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Grade</th>
+                    <th>Feedback</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- filled by JS -->
+                </tbody>
+            </table>
+            <button type="submit" style="margin-top:10px;">Save Grades</button>
+        </div>
     </form>
 </main>
+
+<script>
+    $('#class').change(function () {
+        const subjectId = $(this).val();
+
+        if (!subjectId) {
+            $('#studentTableContainer').hide();
+            return;
+        }
+
+        $.get('/get-students', { subjectId: subjectId }, function (students) {
+            if (!students || students.length === 0) {
+                $('#students-table tbody').html('<tr><td colspan="3">No students enrolled.</td></tr>');
+            } else {
+                let rows = '';
+                students.forEach(student => {
+                    rows += `
+                        <tr>
+                            <td>${student.name} (${student.email})</td>
+                            <td><input type="text" name="grades[${student.email}].grade" placeholder="A-F" required></td>
+                            <td><textarea name="grades[${student.email}].feedback" rows="2" cols="20"></textarea></td>
+                        </tr>`;
+                });
+                $('#students-table tbody').html(rows);
+            }
+            $('#studentTableContainer').show();
+        }).fail(function () {
+            alert("Failed to fetch students. Please try again.");
+            $('#studentTableContainer').hide();
+        });
+    });
+</script>
 </body>
 </html>

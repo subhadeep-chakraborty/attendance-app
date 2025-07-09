@@ -1,6 +1,7 @@
 package com.subhadeep.attendance.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,11 +16,9 @@ import java.util.List;
 public class User {
 
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id //marks id as the primary key
+    @Id
     @Column(nullable = false, unique = true)
     private String email;
-    private Long id;
 
     @Column(nullable = false)
     private String password;
@@ -39,6 +38,7 @@ public class User {
     @ManyToMany(mappedBy = "teachers")
     private List<Subject> subjects;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "student_subjects",
@@ -46,6 +46,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "subject_id")
     )
     private List<Subject> enrolledSubjects = new ArrayList<>();
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Attendance> attendanceRecords = new ArrayList<>();
+
 
 
 }

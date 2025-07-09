@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mark Attendance - Class Monitor App</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <header>
@@ -27,13 +28,15 @@
         <input type="date" id="date" name="date" required>
 
         <label for="class">Class:</label>
-        <select id="class" name="class">
-            <option>Component Oriented Software Engineering</option>
-            <option>Applied Cloud Computing</option>
-            <option>German Language</option>
+        <select id="class" name="class" required>
+            <option value="" disabled selected>Select a subject</option>
+            <option th:each="subject : ${subjects}"
+                    th:value="${subject.id}"
+                    th:text="${subject.name}">
+            </option>
         </select>
 
-        <table>
+        <table id="students-table">
             <thead>
             <tr>
                 <th>Student</th>
@@ -41,20 +44,26 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Subhadeep Chakraborty</td>
-                <td>
-                    <select name="status">
-                        <option>Present</option>
-                        <option>Absent</option>
-                    </select>
-                </td>
-            </tr>
             </tbody>
         </table>
 
         <button type="submit">Save</button>
     </form>
 </main>
+
+<script>
+    $('#class').change(function() {
+        let subjectId = $(this).val();
+        $.get('/get-students', { subjectId: subjectId }, function(students) {
+            let rows = '';
+            students.forEach(function(student) {
+                rows += '<tr><td>' + student.name + '</td>' +
+                    '<td><select name="status_' + student.email + '"><option>Present</option><option>Absent</option></select></td></tr>';
+            });
+            $('#students-table tbody').html(rows);
+        });
+    });
+</script>
+
 </body>
 </html>

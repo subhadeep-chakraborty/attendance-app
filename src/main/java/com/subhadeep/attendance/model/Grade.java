@@ -13,9 +13,11 @@ public class Grade {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "student_email", referencedColumnName = "email")
     private User student;
 
     @ManyToOne
+    @JoinColumn(name = "subject_id")
     private Subject subject;
 
     private String grade;

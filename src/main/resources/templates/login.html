@@ -44,6 +44,13 @@
     <div th:if="${registrationError}" class="message error">
         Registration failed: Email already exists.
     </div>
+    <div th:if="${error}">Invalid username or password.</div>
+    <div th:if="${emailNotVerified}">Your email is not verified. Please check your inbox.</div>
+    <div th:if="${notApproved}">Your account is not approved by admin yet.</div>
+    <div th:if="${timeout}">Session timed out. Please log in again.</div>
+    <div th:if="${logout}">You have been logged out.</div>
+    <div th:if="${registrationSuccess}">Registration successful! Please verify your email.</div>
+    <div th:if="${registrationError}">Registration failed. Try again.</div>
 
 </main>
 </body>
